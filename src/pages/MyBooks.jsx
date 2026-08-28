@@ -83,19 +83,19 @@ function MyBooks() {
 
     function toReadIcon(book){
         if(book.toread) {
-            return <a className="btn btn-default"
-                      style={{marginRight: 5, color: "#ff0000"}}
+            return <button className="btn btn-sm btn-link p-0 mr-3"
+                      style={{color: "#ff0000", fontSize: '1.2rem'}}
                       onClick={() => removeFromReadListHandler(book.id)}
             >
                 <i className="fas fa-heart"></i>
-            </a>
+            </button>
         } else {
-            return <a className="btn btn-default"
-               style={{marginRight: 5, color: "#808080"}}
+            return <button className="btn btn-sm btn-link p-0 mr-3"
+               style={{color: "#ccc", fontSize: '1.2rem'}}
                onClick={() => addToReadListHandler(book.id)}
             >
-                <i className="fas fa-heart"></i>
-            </a>
+                <i className="far fa-heart"></i>
+            </button>
         }
     }
 
@@ -151,22 +151,26 @@ function MyBooks() {
                         {
                             books.map((book, index) => {
                                 return (
-                                    <div key={index} className="col-md-3">
-                                        <div className="card card-primary">
-                                            <div className="card-header">
-                                                <h3 className="card-title">{book.title}</h3>
+                                    <div key={index} className="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                        <div className="card h-100 shadow-sm border-0">
+                                            <div className="card-header bg-transparent border-0 pt-3 d-flex justify-content-between align-items-center">
+                                                <h5 className="card-title font-weight-bold text-truncate mb-0" style={{maxWidth: '80%'}} title={book.title}>{book.title}</h5>
+                                                {toReadIcon(book)}
                                             </div>
-                                            <div className="card-body">
-                                                <img alt={book.title} style={{width: '100%', height: 400}}
+                                            <div className="card-body py-0 text-center">
+                                                <img alt={book.title} 
+                                                     className="img-fluid rounded shadow-sm"
+                                                     style={{width: '100%', height: '300px', objectFit: 'cover'}}
                                                      src={book.image}/>
                                             </div>
-                                            <div className="card-footer" style={{textAlign: 'right'}}>
-                                                {toReadIcon(book)}
-                                                <a className="btn btn-default" onClick={() => goToEditBook(book.id)}
-                                                   style={{marginRight: 5}}><i className="fas fa-edit"></i></a>
-                                                <a className="btn btn-danger"
+                                            <div className="card-footer bg-transparent border-0 pt-3 d-flex justify-content-between">
+                                                <button className="btn btn-sm btn-outline-primary px-3" onClick={() => goToEditBook(book.id)}>
+                                                    <i className="fas fa-edit mr-1"></i> Edit
+                                                </button>
+                                                <button className="btn btn-sm btn-outline-danger px-3"
                                                    onClick={() => deleteHandler(book.id)}>
-                                                    <i className="fa fa-trash" aria-hidden="true"></i></a>
+                                                    <i className="fa fa-trash mr-1" aria-hidden="true"></i> Delete
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

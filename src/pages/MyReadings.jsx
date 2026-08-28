@@ -98,37 +98,33 @@ function MyReadings(){
                                     ended = reading.ended
                                 }
                                 return (
-                                    <div key={index} className="col-md-3">
-                                        <div className="card card-primary">
-                                            <div className="card-header">
-                                                <h3 className="card-title">{reading.book.title}</h3>
+                                    <div key={index} className="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                        <div className="card h-100 shadow-sm border-0">
+                                            <div className="card-header bg-transparent border-0 pt-3">
+                                                <h5 className="card-title font-weight-bold text-truncate" title={reading.book.title}>{reading.book.title}</h5>
                                             </div>
-                                            <div className="card-body">
-                                                <img alt={reading.book.title} style={{width: '100%', height: 400}}
+                                            <div className="card-body py-0 text-center">
+                                                <img alt={reading.book.title} 
+                                                     className="img-fluid rounded shadow-sm"
+                                                     style={{width: '100%', height: '300px', objectFit: 'cover'}}
                                                      src={reading.book.image}/>
                                             </div>
-                                            <div className="card-footer" style={{textAlign: 'right'}}>
-                                                <div className="row">
-                                                    <div className="col-sm-12" style={{textAlign: 'left',}}>
-                                                        <b>started:</b> {reading.started}
-                                                    </div>
+                                            <div className="card-footer bg-transparent border-0 pt-3">
+                                                <div className="small mb-1">
+                                                    <strong>Started:</strong> {reading.started}
                                                 </div>
-                                                <div className="row">
-                                                    <div className="col-sm-8"
-                                                         style={{textAlign: 'left', paddingTop: 10}}>
-                                                        <b>ended:</b> {ended}
-                                                    </div>
-                                                    <div className="col-sm-4">
-                                                        <a className="btn btn-default"
-                                                           style={{marginRight: 5}} href=""
-                                                           onClick={() => goToEditReading(reading.id)}><i
-                                                            className="fas fa-edit"></i>
-                                                        </a>
-                                                        <a className="btn btn-danger" href=""
+                                                <div className="small mb-3">
+                                                    <strong>Ended:</strong> {ended}
+                                                </div>
+                                                <div className="d-flex justify-content-between align-items-center">
+                                                    <button className="btn btn-sm btn-outline-primary"
+                                                           onClick={() => goToEditReading(reading.id)}>
+                                                        <i className="fas fa-edit mr-1"></i> Edit
+                                                    </button>
+                                                    <button className="btn btn-sm btn-outline-danger"
                                                            onClick={() => deleteHandler(reading.id)}>
-                                                            <i className="fa fa-trash" aria-hidden="true"></i>
-                                                        </a>
-                                                    </div>
+                                                        <i className="fa fa-trash mr-1" aria-hidden="true"></i> Delete
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>

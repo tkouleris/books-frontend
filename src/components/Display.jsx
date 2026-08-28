@@ -1,46 +1,46 @@
-function Display({reading}) {
+function Display({reading, isCurrent = false}) {
 
-    function descriptionReducer(description)                {
-        if(description.length > 250){
-            return reading.book.description.substring(0,250) + '...'
-        }else{
+    function descriptionReducer(description) {
+        if (!description) return '';
+        if (description.length > 150) {
+            return description.substring(0, 150) + '...'
+        } else {
             return description
         }
-
     }
 
-    return <div key={reading.id} className="col-md-12" style={{margin: "5px 5px", border: '1px solid black'}}>
-        <div className="row">
-            <div className="col-12" style={{
-                textAlign: "center",
-                backgroundColor: "#0096FF",
-                paddingTop: 0,
-                paddingBottom: 0
-            }}>
-                <b>{reading.book.title}</b>
+    return (
+        <div className="modern-book-card">
+            <div className="book-card-image-wrapper">
+                {isCurrent && <div className="reading-badge">Reading Now</div>}
+                <img 
+                    alt={reading.book.title} 
+                    className="book-card-image"
+                    src={reading.book.image} 
+                />
             </div>
-            <div className="col-6" style={{paddingLeft: 0}}>
-                <img alt={reading.book.title} style={{width: '100%', height: 250}}
-                     src={reading.book.image}/>
-            </div>
-            <div className="col-6">
-                {descriptionReducer(reading.book.description)}
-            </div>
-            <div className="col-12" style={{textAlign: "center"}}>
-                <div className="row">
-                    <div className="col-6" style={{textAlign: "right"}}><b>Started:</b></div>
-                    <div className="col-6" style={{textAlign: "left"}}><span>{reading.started}</span></div>
+            <div className="book-card-content">
+                <h3 className="book-card-title">{reading.book.title}</h3>
+                <p className="book-card-description">
+                    {descriptionReducer(reading.book.description)}
+                </p>
+                <div className="book-card-footer">
+                    <div className="d-flex justify-content-between align-items-center">
+                        <span>
+                            <i className="far fa-calendar-alt mr-1"></i>
+                            {reading.started}
+                        </span>
+                        {reading.ended && (
+                            <span>
+                                <i className="fas fa-check-circle mr-1 text-success"></i>
+                                {reading.ended}
+                            </span>
+                        )}
+                    </div>
                 </div>
-            </div>
-            <div className="col-12" style={{textAlign: "center"}}>
-                <div className="row">
-                    <div className="col-6" style={{textAlign: "right"}}><b>Ended:</b></div>
-                    <div className="col-6" style={{textAlign: "left"}}><span>{reading.ended}</span></div>
-                </div>
-
             </div>
         </div>
-    </div>
+    );
 }
 
 export default Display;

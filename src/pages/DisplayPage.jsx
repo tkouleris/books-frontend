@@ -7,76 +7,71 @@ function DisplayPage() {
     let {username} = useParams();
     const [current_readings, setCurrentReadings] = useState([])
     const [latest_readings, setLatestReadings] = useState([])
-    const [user, setUser] = useState([])
+    const [user, setUser] = useState({})
 
     useEffect(() => {
         document.title = 'Display - ' + username;
         display_page(username).then(res => {
-            console.log(res.data.data)
             setCurrentReadings(res.data.data.current_readings)
             setLatestReadings(res.data.data.latest_readings)
             setUser(res.data.data.user)
         });
-    }, []);
+    }, [username]);
 
-    return <div className="content-wrapper" style={{marginLeft: 40}}>
-        <div className="content-header">
-            <div className="container-fluid">
-                <div className="row mb-2">
-                    <div className="col-sm-6">
-                        <h1 className="m-0">My Readings</h1>
-                    </div>
-                    <div className="col-sm-6">
-                        <ol className="breadcrumb float-sm-right">
-                            <li className="breadcrumb-item"><a href="#">Home</a></li>
-                            <li className="breadcrumb-item active">Starter Page</li>
-                        </ol>
-                    </div>
+    return (
+        <div className="display-page-container" style={{backgroundColor: '#f8f9fa', minHeight: '100vh'}}>
+            <div className="display-page-header">
+                <div className="container">
+                    <h1 className="display-4 font-weight-bold mb-0">{username}'s Library</h1>
+                    <p className="lead opacity-75">Exploring the world of books, one chapter at a time.</p>
                 </div>
             </div>
-        </div>
 
-        <div className="content">
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="col-lg-3" style={{borderRight: "1px solid black"}}>
-                        <div className="card">
-                            <div className="card-header">
-                                <h5 className="card-title">{username}</h5>
-                            </div>
-                            <div className="card-body">
-
-                                <div className="row">
-                                    <div className="col-6">
-                                        <img src={user.avatar} style={{width: 150, height: 150}}/>
-                                    </div>
-                                </div>
-
-                                <a href="#" className="card-link">{user.email}</a>
-                            </div>
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-md-8 text-center">
+                        <div className="profile-avatar-container">
+                            <img 
+                                src={user.avatar || 'https://via.placeholder.com/160'} 
+                                className="profile-avatar" 
+                                alt={username} 
+                            />
                         </div>
-                        <h1>Currently Reading</h1>
-                        {
-                            current_readings.map((reading, index) => {
-                                return <Display key={index} reading={reading}/>
-                            })
-                        }
+                        <h2 className="h3 font-weight-bold mb-1">{username}</h2>
+                        <p className="text-muted mb-5">{user.email}</p>
                     </div>
-                    <div className="col-lg-6">
-                        <h1>Latest Readings</h1>
+                </div>
+
+                {current_readings.length > 0 && (
+                    <div className="mb-5">
+                        <h2 className="display-section-title">Currently Reading</h2>
                         <div className="row">
-                        {
-                            latest_readings.map((reading, index) => {
-                                return <div key={index} className="col-lg-6"><Display reading={reading}/></div>
-                            })
-                        }
+                            {current_readings.map((reading, index) => (
+                                <div key={index} className="col-lg-4 col-md-6 mb-4">
+                                    <Display reading={reading} isCurrent={true} />
+                                </div>
+                            ))}
                         </div>
+                    </div>
+                )}
 
+                <div className="mb-5">
+                    <h2 className="display-section-title">Latest Readings</h2>
+                    <div className="row">
+                        {latest_readings.map((reading, index) => (
+                            <div key={index} className="col-lg-4 col-md-6 mb-4">
+                                <Display reading={reading} />
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
+
+            <footer className="text-center py-5 text-muted">
+                <p>© {new Date().getFullYear()} Books Tracker • Shared with ❤️</p>
+            </footer>
         </div>
-    </div>
+    );
 }
 
 export default DisplayPage;

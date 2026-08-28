@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
-import {dashboard_data} from "../utils/http.jsx";
+import {dashboard_data, display_page} from "../utils/http.jsx";
 import Header from "../components/Header.jsx";
 import SideNav from "../components/SideNav.jsx";
 import Footer from "../components/Footer.jsx";
+import Display from "../components/Display.jsx";
 import '../../public/dist/js/pages/dashboard.js'
 import $ from 'jquery';
 
@@ -12,55 +13,10 @@ function DashboardPage(){
     const [totalCurrentlyReading, setTotalCurrentlyReading] = useState(0)
     const [totalToRead, setTotalToRead] = useState(0)
     const [readPercentage, setReadPercentage] = useState()
+    const [currentlyReadingBooks, setCurrentlyReadingBooks] = useState([])
     const [chartData, setChartData] = useState({
         'labels': [],
         'data':[],
-    })
-
-    var salesChartCanvas = $('#revenue-chart-canvas')
-
-    var salesChartData = {
-        labels: chartData.labels,
-        datasets: [
-            {
-                backgroundColor: 'rgba(60,141,188,0.9)',
-                borderColor: 'rgba(60,141,188,0.8)',
-                pointRadius: false,
-                pointColor: '#3b8bba',
-                pointStrokeColor: 'rgba(60,141,188,1)',
-                pointHighlightFill: '#fff',
-                pointHighlightStroke: 'rgba(60,141,188,1)',
-                data: chartData.data
-            },
-        ]
-    }
-
-    var salesChartOptions = {
-        maintainAspectRatio: false,
-        responsive: true,
-        legend: {
-            display: false
-        },
-        scales: {
-            xAxes: [{
-                gridLines: {
-                    display: false
-                }
-            }],
-            yAxes: [{
-                gridLines: {
-                    display: false
-                }
-            }]
-        }
-    }
-
-    // This will get the first returned node in the jQuery collection.
-    // eslint-disable-next-line no-unused-vars
-    var salesChart = new Chart(salesChartCanvas, { // lgtm[js/unused-local-variable]
-        type: 'bar',
-        data: salesChartData,
-        options: salesChartOptions
     })
 
     useEffect(() => {
@@ -75,6 +31,12 @@ function DashboardPage(){
             setReadPercentage(response.data.data.read_percentage)
             setChartData(response.data.data.char_data)
         })
+
+        display_page(window.localStorage.username).then((response) => {
+            if (response.data.data && response.data.data.current_readings) {
+                setCurrentlyReadingBooks(response.data.data.current_readings);
+            }
+        });
     }, []);
 
     return <div className="wrapper">
@@ -143,46 +105,65 @@ function DashboardPage(){
                             </div>
                         </div>
                     </div>
-                    <div className="row">
-                        <section className="col-lg-12 connectedSortable">
-                            <div className="card">
-                                <div className="card-header">
-                                    <h3 className="card-title">
-                                        <i className="fas fa-chart-pie mr-1"/>
-                                        Books Per Year
-                                    </h3>
-
-                                </div>
-                                <div className="card-body">
-                                    <div className="tab-content p-0">
-                                        <div
-                                            className="chart tab-pane active"
-                                            id="revenue-chart"
-                                            style={{position: "relative", height: 300}}
-                                        >
-                                            <canvas
-                                                id="revenue-chart-canvas"
-                                                height={300}
-                                                style={{height: 300}}
-                                            />
-                                        </div>
-                                        <div
-                                            className="chart tab-pane"
-                                            id="sales-chart"
-                                            style={{position: "relative", height: 300}}
-                                        >
-                                            <canvas
-                                                id="sales-chart-canvas"
-                                                height={300}
-                                                style={{height: 300}}
-                                            />
+                    {currentlyReadingBooks.length > 0 && (
+                        <div className="row">
+                            <div className="col-12">
+                                <div className="card shadow-sm border-0">
+                                    <div className="card-header bg-transparent border-0 pt-4">
+                                        <h3 className="card-title font-weight-bold">
+                                            <i className="fas fa-book-reader mr-2 text-primary"/>
+                                            Currently Reading
+                                        </h3>
+                                    </div>
+                                    <div className="card-body">
+                                        <div className="row">
+                                            {currentlyReadingBooks.map((reading, index) => (
+                                                <div key={index} className="col-lg-4 col-md-6 mb-4">
+                                                    <Display reading={reading} isCurrent={true} />
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                        </section>
-
+                        </div>
+                    )}
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="card">
+                                <div className="card-header border-0">
+                                    <h3 className="card-title">
+                                        <i className="fas fa-calendar-alt mr-1"/>
+                                        Books Read Per Year
+                                    </h3>
+                                </div>
+                                <div className="card-body pt-0">
+                                    <div className="row mt-3">
+                                        {chartData.labels.map((year, index) => (
+                                            <div key={year} className="col-lg-2 col-md-3 col-sm-4 col-6 mb-3">
+                                                <div className="year-stat-card text-center p-3">
+                                                    <div className="year-label mb-2">{year}</div>
+                                                    <div className="book-count-wrapper">
+                                                        <span className="book-count">{chartData.data[index]}</span>
+                                                        <span className="book-unit ml-1">books</span>
+                                                    </div>
+                                                    <div className="progress mt-2" style={{height: '4px'}}>
+                                                        <div 
+                                                            className="progress-bar bg-primary" 
+                                                            role="progressbar" 
+                                                            style={{
+                                                                width: `${Math.min(100, (chartData.data[index] / (Math.max(...chartData.data) || 1)) * 100)}%`,
+                                                                borderRadius: '2px'
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
