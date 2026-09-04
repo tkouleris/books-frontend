@@ -63,6 +63,19 @@ function DisplayPage() {
                         </div>
                     </div>
                 )}
+                
+                {to_read.length > 0 && (
+                    <div className="mb-5">
+                        <h2 className="display-section-title">Next to read</h2>
+                        <div className="row">
+                            {to_read.slice(0, 3).map((reading, index) => (
+                                <div key={index} className="col-lg-4 col-md-6 mb-4">
+                                    <Display reading={reading} />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
 
                 <div className="mb-5">
                     <h2 className="display-section-title">Latest Readings</h2>
@@ -75,18 +88,6 @@ function DisplayPage() {
                     </div>
                 </div>
 
-                {to_read.length > 0 && (
-                    <div className="mb-5">
-                        <h2 className="display-section-title">To Read</h2>
-                        <div className="row">
-                            {to_read.map((reading, index) => (
-                                <div key={index} className="col-lg-4 col-md-6 mb-4">
-                                    <Display reading={reading} />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
             </div>
 
             <footer className="text-center py-5 text-muted">
