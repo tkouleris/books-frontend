@@ -40,7 +40,7 @@ function LoginPage() {
 
     return (
         <div className="container-fluid min-vh-100 d-flex align-items-center" style={{
-            backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("dist/img/photo4.jpg")',
+            backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("dist/img/library.jpg")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             padding: '20px 0'
