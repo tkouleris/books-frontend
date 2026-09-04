@@ -49,30 +49,30 @@ function LoginPage() {
                 <div className="row align-items-center">
                     <div className="col-lg-7 mb-4 mb-lg-0">
                         <div className="jumbotron bg-transparent p-0">
-                            <h1 className="display-4 font-weight-bold"><i className="fas fa-book-open text-primary"></i> Καλώς ήρθατε στο Books</h1>
+                            <h1 className="display-4 font-weight-bold"><i className="fas fa-book-open text-primary"></i> Welcome to Books</h1>
                             <p className="lead mt-4">
-                                Η απόλυτη πλατφόρμα για τη διαχείριση της προσωπικής σας βιβλιοθήκης.
+                                The ultimate platform for managing your personal library.
                             </p>
                             <hr className="my-4"/>
                             <p>
-                                Με το Books μπορείτε να οργανώσετε τα βιβλία σας, να παρακολουθείτε την πρόοδο της ανάγνωσής σας
-                                και να ανακαλύψετε νέους τίτλους που ταιριάζουν στα γούστα σας.
+                                With Books, you can organize your books, track your reading progress,
+                                and share your reading habits with your friends.
                             </p>
                             <div className="row mt-5">
                                 <div className="col-sm-4 text-center mb-3">
                                     <i className="fas fa-list fa-3x text-info"></i>
-                                    <h5 className="mt-2">Οργάνωση</h5>
-                                    <p className="small">Κατηγοριοποιήστε τα βιβλία σας ανά είδος, συγγραφέα ή κατάσταση.</p>
+                                    <h5 className="mt-2">Organization</h5>
+                                    <p className="small">Catalog your books and keep track of when you read them and what your next book will be.</p>
                                 </div>
                                 <div className="col-sm-4 text-center mb-3">
                                     <i className="fas fa-chart-line fa-3x text-success"></i>
-                                    <h5 className="mt-2">Πρόοδος</h5>
-                                    <p className="small">Καταγράψτε πόσες σελίδες έχετε διαβάσει και δείτε στατιστικά.</p>
+                                    <h5 className="mt-2">Progress</h5>
+                                    <p className="small">Record when you read a book and see how many you have read so far.</p>
                                 </div>
                                 <div className="col-sm-4 text-center mb-3">
                                     <i className="fas fa-users fa-3x text-warning"></i>
-                                    <h5 className="mt-2">Κοινότητα</h5>
-                                    <p className="small">Μοιραστείτε τις απόψεις σας και δείτε τι διαβάζουν οι φίλοι σας.</p>
+                                    <h5 className="mt-2">Community</h5>
+                                    <p className="small">Share your reading habits with your friends.</p>
                                 </div>
                             </div>
                         </div>
