@@ -26,10 +26,12 @@ function Display({reading, isCurrent = false}) {
                 </p>
                 <div className="book-card-footer">
                     <div className="d-flex justify-content-between align-items-center">
-                        <span>
-                            <i className="far fa-calendar-alt mr-1"></i>
-                            {reading.started}
-                        </span>
+                        {reading.started && (
+                            <span>
+                                <i className="far fa-calendar-alt mr-1"></i>
+                                {reading.started}
+                            </span>
+                        )}
                         {reading.ended && (
                             <span>
                                 <i className="fas fa-check-circle mr-1 text-success"></i>

@@ -7,13 +7,16 @@ function DisplayPage() {
     let {username} = useParams();
     const [current_readings, setCurrentReadings] = useState([])
     const [latest_readings, setLatestReadings] = useState([])
+    const [to_read, setToRead] = useState([])
     const [user, setUser] = useState({})
 
     useEffect(() => {
         document.title = 'Display - ' + username;
         display_page(username).then(res => {
+            console.log(res.data.data.to_read)
             setCurrentReadings(res.data.data.current_readings)
             setLatestReadings(res.data.data.latest_readings)
+            setToRead(res.data.data.to_read || [])
             setUser(res.data.data.user)
         });
     }, [username]);
@@ -71,6 +74,19 @@ function DisplayPage() {
                         ))}
                     </div>
                 </div>
+
+                {to_read.length > 0 && (
+                    <div className="mb-5">
+                        <h2 className="display-section-title">To Read</h2>
+                        <div className="row">
+                            {to_read.map((reading, index) => (
+                                <div key={index} className="col-lg-4 col-md-6 mb-4">
+                                    <Display reading={reading} />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
 
             <footer className="text-center py-5 text-muted">
