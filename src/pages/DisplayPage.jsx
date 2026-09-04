@@ -19,7 +19,13 @@ function DisplayPage() {
     }, [username]);
 
     return (
-        <div className="display-page-container" style={{backgroundColor: '#f8f9fa', minHeight: '100vh'}}>
+        <div className="display-page-container" style={{
+            backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("/dist/img/library.jpg")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed',
+            minHeight: '100vh'
+        }}>
             <div className="display-page-header">
                 <div className="container">
                     <h1 className="display-4 font-weight-bold mb-0">{username}'s Library</h1>
