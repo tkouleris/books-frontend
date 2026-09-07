@@ -23,7 +23,7 @@ function DisplayPage() {
 
     return (
         <div className="display-page-container" style={{
-            backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("/dist/img/library.jpg")',
+            backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("https://books.tkouleris.eu/static/dist/img/library.jpg")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundAttachment: 'fixed',
