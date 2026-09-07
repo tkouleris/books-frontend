@@ -19,7 +19,7 @@ function ReadingsForm(){
     const [bookId, setBookId] = useState()
     const [readId, setReadId] = useState(null)
     const [books, setBooks] = useState([])
-    const [bookTitle, setBookTitle] = useState('Select book...')
+    const [bookTitle, setBookTitle] = useState('')
 
     const zeroPad = (num, places) => String(num).padStart(places, '0')
 

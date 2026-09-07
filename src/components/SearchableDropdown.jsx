@@ -5,7 +5,8 @@ const SearchableDropdown = ({
                                 label,
                                 id,
                                 selectedVal,
-                                handleChange
+                                handleChange,
+                                placeholder
                             }) => {
     const [query, setQuery] = useState("");
     const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +31,7 @@ const SearchableDropdown = ({
 
     const getDisplayValue = () => {
         if (query) return query;
-        if (selectedVal) return selectedVal;
+        if (selectedVal && selectedVal !== 'Select book...') return selectedVal;
 
         return "";
     };
@@ -48,6 +49,7 @@ const SearchableDropdown = ({
                     <input
                         ref={inputRef}
                         type="text"
+                        placeholder={placeholder || "Select book..."}
                         value={getDisplayValue()}
                         name="searchTerm"
                         onChange={(e) => {
